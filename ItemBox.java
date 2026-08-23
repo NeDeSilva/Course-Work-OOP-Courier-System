@@ -1,0 +1,7 @@
+/**
+ * ItemBox
+ */
+public class ItemBox {
+
+	
+}
