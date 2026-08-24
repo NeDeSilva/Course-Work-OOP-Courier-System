@@ -8,10 +8,10 @@ import javax.swing.*;
 class CoreUI extends JPanel {
 
 	String title = "Courier Management System";
-	int baseLocationX = 100;
-	int baseLocationY = 100;
-	int windowHeight = 700;
-	int windowWidth = 700;
+	static int baseLocationX = 100;
+	static int baseLocationY = 100;
+	static int windowHeight = 700;
+	static int windowWidth = 700;
 	int sectionHeight = 30;
 	int sectionWidth = 50;
 
