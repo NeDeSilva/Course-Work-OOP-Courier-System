@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "govID": "A-900",
+      "name": "Test Admin",
+      "age": 30,
+      "address": "HQ",
+      "phoneNumber": "077-0000000",
+      "emailAddress": "test@courier.com",
+      "userName": "testadmin",
+      "password": "pass123"
+    }
+  ],
+  "items": [
+    {
+      "itemID": "IT-900",
+      "itemName": "Test Parcel",
+      "Description": "Example shipment",
+      "itemWeight": 3,
+      "itemSize": 14,
+      "itemPrice": 500.0,
+      "itemDiscount": 5,
+      "stockCount": 10
+    }
+  ]
+}
