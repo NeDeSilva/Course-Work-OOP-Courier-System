@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+<style>text{font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; fill: #222f3a;}</style>
+<rect width="100%" height="100%" fill="#f5f7fa"/>
+<text x="20" y="40" font-size="20" font-weight="700">Inventory</text>
+<rect x="20" y="60" width="1160" height="44" rx="6" fill="#fff" stroke="#e6eef5"/>
+<text x="30" y="88" font-size="13" fill="#7b8a95">Search | Filters | Sort | + Add Item</text>
+<rect x="20" y="120" width="1160" height="40" fill="#f8fbff" stroke="#e6eef5"/>
+<text x="34" y="146" font-size="13" font-weight="700">ID</text><text x="120" y="146" font-size="13" font-weight="700">Name</text><text x="420" y="146" font-size="13" font-weight="700">Price</text><text x="520" y="146" font-size="13" font-weight="700">Stock</text>
+<rect x="20" y="164" width="1160" height="40" fill="#ffffff" stroke="#f1f5f8"/>
+<text x="34" y="188" font-size="13">IT-100</text>
+<text x="120" y="188" font-size="13">Sample Item 1</text>
+<text x="420" y="188" font-size="13">750</text>
+<text x="520" y="188" font-size="13">20</text>
+<rect x="980" y="174" width="80" height="24" rx="4" fill="#fff" stroke="#dfe6eb"/>
+<text x="994" y="190" font-size="12">Edit</text>
+<rect x="20" y="204" width="1160" height="40" fill="#ffffff" stroke="#f1f5f8"/>
+<text x="34" y="228" font-size="13">IT-101</text>
+<text x="120" y="228" font-size="13">Sample Item 2</text>
+<text x="420" y="228" font-size="13">800</text>
+<text x="520" y="228" font-size="13">19</text>
+<rect x="980" y="214" width="80" height="24" rx="4" fill="#fff" stroke="#dfe6eb"/>
+<text x="994" y="230" font-size="12">Edit</text>
+<rect x="20" y="244" width="1160" height="40" fill="#ffffff" stroke="#f1f5f8"/>
+<text x="34" y="268" font-size="13">IT-102</text>
+<text x="120" y="268" font-size="13">Sample Item 3</text>
+<text x="420" y="268" font-size="13">850</text>
+<text x="520" y="268" font-size="13">18</text>
+<rect x="980" y="254" width="80" height="24" rx="4" fill="#fff" stroke="#dfe6eb"/>
+<text x="994" y="270" font-size="12">Edit</text>
+<rect x="20" y="284" width="1160" height="40" fill="#ffffff" stroke="#f1f5f8"/>
+<text x="34" y="308" font-size="13">IT-103</text>
+<text x="120" y="308" font-size="13">Sample Item 4</text>
+<text x="420" y="308" font-size="13">900</text>
+<text x="520" y="308" font-size="13">17</text>
+<rect x="980" y="294" width="80" height="24" rx="4" fill="#fff" stroke="#dfe6eb"/>
+<text x="994" y="310" font-size="12">Edit</text>
+<rect x="20" y="324" width="1160" height="40" fill="#ffffff" stroke="#f1f5f8"/>
+<text x="34" y="348" font-size="13">IT-104</text>
+<text x="120" y="348" font-size="13">Sample Item 5</text>
+<text x="420" y="348" font-size="13">950</text>
+<text x="520" y="348" font-size="13">16</text>
+<rect x="980" y="334" width="80" height="24" rx="4" fill="#fff" stroke="#dfe6eb"/>
+<text x="994" y="350" font-size="12">Edit</text>
+<rect x="20" y="364" width="1160" height="40" fill="#ffffff" stroke="#f1f5f8"/>
+<text x="34" y="388" font-size="13">IT-105</text>
+<text x="120" y="388" font-size="13">Sample Item 6</text>
+<text x="420" y="388" font-size="13">1000</text>
+<text x="520" y="388" font-size="13">15</text>
+<rect x="980" y="374" width="80" height="24" rx="4" fill="#fff" stroke="#dfe6eb"/>
+<text x="994" y="390" font-size="12">Edit</text>
+<rect x="20" y="420" width="1160" height="110" rx="8" fill="#ffffff" stroke="#e6eef5"/>
+<text x="40" y="444" font-size="14" font-weight="700">Inline Add Item</text>
+<text x="40" y="468" font-size="12" fill="#7b8a95">[ID*] [Name*] [Price*] [Stock*] [Add] [Cancel]</text>
+</svg>

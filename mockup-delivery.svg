@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+<style>text{font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; fill: #222f3a;}</style>
+<rect width="100%" height="100%" fill="#f5f7fa"/>
+<text x="20" y="40" font-size="20" font-weight="700">Driver — Deliveries</text>
+<rect x="20" y="80" width="400" height="640" rx="8" fill="#ffffff" stroke="#e6eef5"/>
+<text x="40" y="112" font-size="14" font-weight="700">Assigned Deliveries</text>
+<rect x="32" y="128" width="368" height="36" fill="#fff" stroke="#f1f5f8"/>
+<text x="48" y="152" font-size="13">ORD-100 — Alice — Due: Today</text>
+<g transform="translate(0,36)"></g>
+<rect x="32" y="128" width="368" height="36" fill="#fff" stroke="#f1f5f8"/>
+<text x="48" y="152" font-size="13">ORD-101 — Alice — Due: Today</text>
+<g transform="translate(0,72)"></g>
+<rect x="32" y="128" width="368" height="36" fill="#fff" stroke="#f1f5f8"/>
+<text x="48" y="152" font-size="13">ORD-102 — Alice — Due: Today</text>
+<g transform="translate(0,108)"></g>
+<rect x="32" y="128" width="368" height="36" fill="#fff" stroke="#f1f5f8"/>
+<text x="48" y="152" font-size="13">ORD-103 — Alice — Due: Today</text>
+<g transform="translate(0,144)"></g>
+<rect x="32" y="128" width="368" height="36" fill="#fff" stroke="#f1f5f8"/>
+<text x="48" y="152" font-size="13">ORD-104 — Alice — Due: Today</text>
+<g transform="translate(0,180)"></g>
+<rect x="32" y="128" width="368" height="36" fill="#fff" stroke="#f1f5f8"/>
+<text x="48" y="152" font-size="13">ORD-105 — Alice — Due: Today</text>
+<g transform="translate(0,216)"></g>
+<rect x="32" y="128" width="368" height="36" fill="#fff" stroke="#f1f5f8"/>
+<text x="48" y="152" font-size="13">ORD-106 — Alice — Due: Today</text>
+<g transform="translate(0,252)"></g>
+<rect x="32" y="128" width="368" height="36" fill="#fff" stroke="#f1f5f8"/>
+<text x="48" y="152" font-size="13">ORD-107 — Alice — Due: Today</text>
+<g transform="translate(0,288)"></g>
+<rect x="440" y="80" width="720" height="640" rx="8" fill="#ffffff" stroke="#e6eef5"/>
+<text x="460" y="112" font-size="16" font-weight="700">ORD-102</text>
+<text x="460" y="140" font-size="13">Recipient: Alice</text>
+<text x="460" y="164" font-size="13">Address: 123 Main St</text>
+<rect x="460" y="200" width="120" height="36" rx="6" fill="#fff" stroke="#dfe6eb"/>
+<text x="492" y="224" font-size="13">Picked up</text>
+<rect x="592" y="200" width="120" height="36" rx="6" fill="#fff" stroke="#dfe6eb"/>
+<text x="624" y="224" font-size="13">Delivered</text>
+</svg>

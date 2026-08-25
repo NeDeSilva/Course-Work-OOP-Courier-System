@@ -1,0 +1,32 @@
+Phase 4 — Visual specification
+Generated: 2026-08-25T18:13:08.956717500
+
+Color palette:
+- Primary: #3498db (primary actions, header)
+- Primary dark: #2c80b4 (hover / active)
+- Accent: #27ae60 (success, badges)
+- Background: #f5f7fa (app background)
+- Card: #ffffff (panels)
+- Text: #222f3a (main text)
+- Muted: #7b8a95 (secondary text, placeholders)
+
+Typography:
+- Typeface: System UI / Sans-serif (UI). Fallback: Arial, Helvetica.
+- Sizes (desktop): h1: 28px, h2: 20px, body: 14px, small: 12px
+
+Spacing system:
+- Base unit: 8px. Use multiples for gap, padding, margin (8,16,24,32).
+
+Components spec:
+- Button (primary): background=PRIMARY, color=#fff, padding=8px 14px, border-radius=6px, hover=PRIMARY_DARK.
+- Button (secondary): background=#fff, border=1px solid #dfe6eb, color=TEXT.
+- Table: zebra rows optional, header bold 12px, row height 36px, selectable with focus ring.
+- Inputs: height 34px, padding 8px, border-radius 6px, border 1px solid #dfe6eb. Invalid border color: #e74c3c.
+- Modal: centered card, max-width 720px, overlay rgba(0,0,0,0.35), primary action on right.
+
+Responsive notes:
+- Desktop: 1200–1600px, full layout with left/right panes.
+- Narrow widths (< 900px): convert right pane to stacked below list; collapse complex KPIs into summary cards.
+- Use fluid widths for tables with horizontal scroll at small sizes.
+
+Annotations: mockup SVGs include callouts showing component usage and spacing.
