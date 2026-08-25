@@ -3,10 +3,10 @@
  */
 
  import java.util.ArrayList;
-public class ItemBox {
+public class Box {
 	ArrayList<Items> itemsInBox = new ArrayList<Items>();
 
-	ItemBox() {
+	Box() {
 		
 	}
 

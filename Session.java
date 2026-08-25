@@ -1,17 +1,26 @@
-class Session{
+class Session {
 
 	Admin admin;
-	ItemBox itemBox;
+	Seller seller;
+	Customer customer;
+	Driver driver;
+	Box itemBox;
 
-	Session(Admin admin, ItemBox itemBox) {
+	Session(
+		Admin admin,
+		Seller seller,
+		Customer customer,
+		Driver driver,
+		Box itemBox
+	) {
 		this.admin = admin;
-		this.itemBox = itemBox;	}
-	
-	public Admin getAdmin() {
-		return admin;
+		this.itemBox = itemBox;
+		this.seller = seller;
+		this.customer = customer;
+		this.driver = driver;
 	}
-	
-	public ItemBox getItemBox() {
-		return itemBox;
+
+	String getSession(){
+		return "Session";
 	}
 }
