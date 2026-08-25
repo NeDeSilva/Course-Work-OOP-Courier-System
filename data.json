@@ -8,7 +8,11 @@
       "phoneNumber": "077-0000000",
       "emailAddress": "test@courier.com",
       "userName": "testadmin",
-      "password": "pass123"
+      "password": "pass123",
+      "role": "admin",
+      "shopName": "",
+      "licenseNumber": "",
+      "vehicleNumber": ""
     }
   ],
   "items": [

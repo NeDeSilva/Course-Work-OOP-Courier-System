@@ -11,6 +11,37 @@ public class UsersPanel extends JPanel {
     private final JList<Person> sellerList = new JList<>(sellerModel);
     private final JList<Person> driverList = new JList<>(driverModel);
 
+    // Double-click support: open detail UI for the selected user
+    {
+        customerList.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    Person p = customerList.getSelectedValue();
+                    if (p instanceof Customer) CustomerUI.show((Customer) p);
+                }
+            }
+        });
+        sellerList.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    Person p = sellerList.getSelectedValue();
+                    if (p instanceof Seller) SellerUI.show((Seller) p);
+                }
+            }
+        });
+        driverList.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    Person p = driverList.getSelectedValue();
+                    if (p instanceof Driver) DriverUI.show((Driver) p);
+                }
+            }
+        });
+    }
+
     public UsersPanel(AppController controller) {
         this.controller = controller;
         setLayout(new BorderLayout(8,8));
@@ -26,6 +57,14 @@ public class UsersPanel extends JPanel {
         JButton addDriver = new JButton("Add Driver");
         JButton saveBtn = new JButton("Save");
         top.add(addCustomer); top.add(addSeller); top.add(addDriver); top.add(saveBtn);
+
+        // Global save shortcut (Ctrl+S)
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(javax.swing.KeyStroke.getKeyStroke("control S"), "save");
+        this.getActionMap().put("save", new javax.swing.AbstractAction() {
+            @Override public void actionPerformed(java.awt.event.ActionEvent e) {
+                saveBtn.doClick();
+            }
+        });
 
         add(top, BorderLayout.NORTH);
         add(tabs, BorderLayout.CENTER);

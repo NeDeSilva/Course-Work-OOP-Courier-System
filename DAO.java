@@ -16,12 +16,16 @@ public class DAO {
     private final Path filePath;
     private final String sqliteUrl;
 
+    private static final boolean JDBC_AVAILABLE;
     static {
+        boolean ok = true;
         try {
             Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("SQLite JDBC driver not found.", e);
+            ok = false;
+            System.err.println("Warning: SQLite JDBC driver not found on classpath — DAO will fall back to JSON-only mode.");
         }
+        JDBC_AVAILABLE = ok;
     }
 
     public DAO(String filePath) {
@@ -42,6 +46,11 @@ public class DAO {
         }
 
         try {
+            if (!JDBC_AVAILABLE) {
+                // SQLite driver unavailable — use JSON-only fallback
+                writeLegacyJson(itemBox, users);
+                return;
+            }
             ensureSchema();
             try (Connection connection = getConnection()) {
                 connection.setAutoCommit(false);
@@ -115,6 +124,10 @@ public class DAO {
     }
 
     public ItemBox loadItemBox() throws IOException {
+        if (!JDBC_AVAILABLE) {
+            // no JDBC driver — load from JSON only
+            return loadJsonItemBox();
+        }
         ensureSchema();
         ItemBox itemBox = new ItemBox();
         try (Connection connection = getConnection();
@@ -148,6 +161,10 @@ public class DAO {
     }
 
     public List<Person> loadUsers() throws IOException {
+        if (!JDBC_AVAILABLE) {
+            // no JDBC driver — load users from JSON only
+            return loadJsonUsers();
+        }
         ensureSchema();
         List<Person> users = new ArrayList<>();
         try (Connection connection = getConnection();
@@ -190,6 +207,11 @@ public class DAO {
                 }
             }
         } catch (SQLException e) {
+            String msg = e.getMessage() == null ? "" : e.getMessage().toLowerCase();
+            if (msg.contains("no such column") || msg.contains("no such table") || msg.contains("has no column")) {
+                System.err.println("Warning: SQLite users table schema mismatch or missing table/column — falling back to JSON users. (" + e.getMessage() + ")");
+                return loadJsonUsers();
+            }
             throw new IOException("Failed to load user data from SQLite database.", e);
         }
 
@@ -237,6 +259,8 @@ public class DAO {
     }
 
     private void writeLegacyJson(ItemBox itemBox, List<Person> users) throws IOException {
+        // ensure users list is non-null
+        if (users == null) users = new java.util.ArrayList<>();
         Path legacyFile = filePath;
         if (legacyFile.toString().toLowerCase().endsWith(".db")) {
             legacyFile = Paths.get(legacyFile.toString().replace(".db", ".json"));
@@ -314,6 +338,10 @@ public class DAO {
         Files.writeString(legacyFile, json.toString(), StandardCharsets.UTF_8);
     }
 
+    public void persistUsersJson(ItemBox itemBox, List<Person> users) throws IOException {
+        writeLegacyJson(itemBox, users);
+    }
+
     private ItemBox loadJsonItemBox() throws IOException {
         Path jsonPath = filePath;
         if (jsonPath.toString().toLowerCase().endsWith(".db")) {
@@ -384,6 +412,25 @@ public class DAO {
             String licenseNumber = extractString(object, "licenseNumber");
             String vehicleNumber = extractString(object, "vehicleNumber");
 
+            // If role missing, try to infer from govID prefix or name heuristics to make login smoother
+            if (role == null || role.isEmpty()) {
+                if (govID != null) {
+                    String up = govID.toUpperCase();
+                    if (up.startsWith("A-")) role = "admin";
+                    else if (up.startsWith("C-")) role = "customer";
+                    else if (up.startsWith("S-")) role = "seller";
+                    else if (up.startsWith("D-")) role = "driver";
+                }
+                if ((role == null || role.isEmpty()) && name != null) {
+                    String n = name.toLowerCase();
+                    if (n.contains("admin")) role = "admin";
+                    else if (n.contains("seller") || n.contains("shop")) role = "seller";
+                    else if (n.contains("driver")) role = "driver";
+                    else if (n.contains("customer") || n.contains("client")) role = "customer";
+                }
+                if (role == null) role = "";
+            }
+
             if (role != null && !role.isEmpty()) {
                 switch (role.toLowerCase()) {
                     case "seller":
@@ -415,10 +462,9 @@ public class DAO {
             return null;
         }
         int openBracket = content.indexOf('[', keyIndex);
-        int closeBracket = content.lastIndexOf(']', keyIndex);
-        if (openBracket < 0 || closeBracket < openBracket) {
-            return null;
-        }
+        if (openBracket < 0) return null;
+        int closeBracket = content.indexOf(']', openBracket);
+        if (closeBracket < openBracket) return null;
         return content.substring(openBracket + 1, closeBracket);
     }
 
