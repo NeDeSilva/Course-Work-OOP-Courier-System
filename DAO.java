@@ -69,7 +69,7 @@ public class DAO {
                 }
 
                 try (PreparedStatement insertUser = connection.prepareStatement(
-                        "INSERT INTO users (govID, name, age, address, phoneNumber, emailAddress, userName, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
+                        "INSERT INTO users (govID, name, age, address, phoneNumber, emailAddress, userName, password, role, shopName, licenseNumber, vehicleNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
                     for (Person user : users) {
                         insertUser.setString(1, user.govID);
                         insertUser.setString(2, user.name);
@@ -79,6 +79,27 @@ public class DAO {
                         insertUser.setString(6, user.emailAddress);
                         insertUser.setString(7, user.userName);
                         insertUser.setString(8, user.password);
+                        // determine role and extra fields
+                        String role = "person";
+                        String shopName = "";
+                        String licenseNumber = "";
+                        String vehicleNumber = "";
+                        if (user instanceof Seller) {
+                            role = "seller";
+                            shopName = ((Seller) user).getShopName();
+                        } else if (user instanceof Driver) {
+                            role = "driver";
+                            licenseNumber = ((Driver) user).getLicenseNumber();
+                            vehicleNumber = ((Driver) user).getVehicleNumber();
+                        } else if (user.getClass().getSimpleName().equals("Admin")) {
+                            role = "admin";
+                        } else if (user.getClass().getSimpleName().equals("Customer")) {
+                            role = "customer";
+                        }
+                        insertUser.setString(9, role);
+                        insertUser.setString(10, shopName);
+                        insertUser.setString(11, licenseNumber);
+                        insertUser.setString(12, vehicleNumber);
                         insertUser.addBatch();
                     }
                     insertUser.executeBatch();
@@ -131,18 +152,42 @@ public class DAO {
         List<Person> users = new ArrayList<>();
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     "SELECT govID, name, age, address, phoneNumber, emailAddress, userName, password FROM users")) {
+                     "SELECT govID, name, age, address, phoneNumber, emailAddress, userName, password, role, shopName, licenseNumber, vehicleNumber FROM users")) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                users.add(new Person(
-                        rs.getString("govID"),
-                        rs.getString("name"),
-                        rs.getInt("age"),
-                        rs.getString("address"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("emailAddress"),
-                        rs.getString("userName"),
-                        rs.getString("password")));
+                String govID = rs.getString("govID");
+                String name = rs.getString("name");
+                int age = rs.getInt("age");
+                String address = rs.getString("address");
+                String phone = rs.getString("phoneNumber");
+                String email = rs.getString("emailAddress");
+                String username = rs.getString("userName");
+                String password = rs.getString("password");
+                String role = rs.getString("role");
+                String shopName = rs.getString("shopName");
+                String licenseNumber = rs.getString("licenseNumber");
+                String vehicleNumber = rs.getString("vehicleNumber");
+
+                if (role != null) {
+                    switch (role.toLowerCase()) {
+                        case "seller":
+                            users.add(new Seller(govID, name, age, address, phone, email, username, password, shopName));
+                            break;
+                        case "driver":
+                            users.add(new Driver(govID, name, age, address, phone, email, username, password, licenseNumber, vehicleNumber));
+                            break;
+                        case "admin":
+                            users.add(new Admin(govID, name, age, address, phone, email, username, password));
+                            break;
+                        case "customer":
+                            users.add(new Customer(govID, name, age, address, phone, email, username, password));
+                            break;
+                        default:
+                            users.add(new Person(govID, name, age, address, phone, email, username, password));
+                    }
+                } else {
+                    users.add(new Person(govID, name, age, address, phone, email, username, password));
+                }
             }
         } catch (SQLException e) {
             throw new IOException("Failed to load user data from SQLite database.", e);
@@ -181,7 +226,11 @@ public class DAO {
                     + "phoneNumber TEXT, "
                     + "emailAddress TEXT, "
                     + "userName TEXT, "
-                    + "password TEXT)");
+                    + "password TEXT, "
+                    + "role TEXT, "
+                    + "shopName TEXT, "
+                    + "licenseNumber TEXT, "
+                    + "vehicleNumber TEXT)");
         } catch (SQLException e) {
             throw new IOException("Unable to initialize SQLite schema.", e);
         }
@@ -206,7 +255,28 @@ public class DAO {
             json.append("      \"phoneNumber\": \"").append(escapeJson(user.phoneNumber)).append("\",\n");
             json.append("      \"emailAddress\": \"").append(escapeJson(user.emailAddress)).append("\",\n");
             json.append("      \"userName\": \"").append(escapeJson(user.userName)).append("\",\n");
-            json.append("      \"password\": \"").append(escapeJson(user.password)).append("\"\n");
+            json.append("      \"password\": \"").append(escapeJson(user.password)).append("\",\n");
+            // role and extended fields for Seller/Driver
+            String role = "person";
+            String shopName = "";
+            String licenseNumber = "";
+            String vehicleNumber = "";
+            if (user instanceof Seller) {
+                role = "seller";
+                shopName = ((Seller) user).getShopName();
+            } else if (user instanceof Driver) {
+                role = "driver";
+                licenseNumber = ((Driver) user).getLicenseNumber();
+                vehicleNumber = ((Driver) user).getVehicleNumber();
+            } else if (user.getClass().getSimpleName().equals("Admin")) {
+                role = "admin";
+            } else if (user.getClass().getSimpleName().equals("Customer")) {
+                role = "customer";
+            }
+            json.append("      \"role\": \"").append(escapeJson(role)).append("\",\n");
+            json.append("      \"shopName\": \"").append(escapeJson(shopName)).append("\",\n");
+            json.append("      \"licenseNumber\": \"").append(escapeJson(licenseNumber)).append("\",\n");
+            json.append("      \"vehicleNumber\": \"").append(escapeJson(vehicleNumber)).append("\"\n");
             json.append("    }");
             if (i < users.size() - 1) {
                 json.append(",");
@@ -309,7 +379,31 @@ public class DAO {
             String emailAddress = extractString(object, "emailAddress");
             String userName = extractString(object, "userName");
             String password = extractString(object, "password");
-            users.add(new Person(govID, name, age, address, phoneNumber, emailAddress, userName, password));
+            String role = extractString(object, "role");
+            String shopName = extractString(object, "shopName");
+            String licenseNumber = extractString(object, "licenseNumber");
+            String vehicleNumber = extractString(object, "vehicleNumber");
+
+            if (role != null && !role.isEmpty()) {
+                switch (role.toLowerCase()) {
+                    case "seller":
+                        users.add(new Seller(govID, name, age, address, phoneNumber, emailAddress, userName, password, shopName));
+                        break;
+                    case "driver":
+                        users.add(new Driver(govID, name, age, address, phoneNumber, emailAddress, userName, password, licenseNumber, vehicleNumber));
+                        break;
+                    case "admin":
+                        users.add(new Admin(govID, name, age, address, phoneNumber, emailAddress, userName, password));
+                        break;
+                    case "customer":
+                        users.add(new Customer(govID, name, age, address, phoneNumber, emailAddress, userName, password));
+                        break;
+                    default:
+                        users.add(new Person(govID, name, age, address, phoneNumber, emailAddress, userName, password));
+                }
+            } else {
+                users.add(new Person(govID, name, age, address, phoneNumber, emailAddress, userName, password));
+            }
         }
         return users;
     }
