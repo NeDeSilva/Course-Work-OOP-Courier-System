@@ -1,7 +1,0 @@
-/**
- * ItemBox
- */
-public class ItemBox {
-
-	
-}
