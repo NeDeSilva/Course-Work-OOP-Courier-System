@@ -1,0 +1,26 @@
+# Ignore compiled Java class files
+*.class
+
+# IDE and editor folders
+.vscode/
+.idea/
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Build output
+out/
+target/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Generated user/test artifacts
+phase5-smoke.json
+
+# Node modules (if any)
+node_modules/
