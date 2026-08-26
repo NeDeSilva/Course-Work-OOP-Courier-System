@@ -1,5 +1,7 @@
 import javax.swing.*;
 
+import UI.UIPanels;
+
 class App{
 	public static void main(String[] args){
 		SwingUtilities.invokeLater(() -> {createAndShowGUI();});			
@@ -13,7 +15,7 @@ class App{
 		frame.setLayout(null);
 		frame.setVisible(true);
 
-		JPanel loginPanel = CoreUIPanels.createLoginPanel();
+		JPanel loginPanel = UIPanels.createLoginPanel();
 		frame.add(loginPanel);
 		
 		JButton loginButton = CoreUIElements.createButton("Login");

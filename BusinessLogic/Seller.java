@@ -1,0 +1,4 @@
+package BusinessLogic;
+class Seller {
+	
+}

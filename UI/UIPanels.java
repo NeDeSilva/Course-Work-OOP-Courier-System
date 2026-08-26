@@ -1,6 +1,7 @@
+package UI;
 import javax.swing.*;
 
-public class CoreUIPanels {
+public class UIPanels {
 	
 	public static JPanel createLoginPanel() {
 		JPanel panel = new JPanel();
