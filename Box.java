@@ -5,9 +5,24 @@
  import java.util.ArrayList;
 public class Box {
 	ArrayList<Items> itemsInBox = new ArrayList<Items>();
-
-	Box() {
-		
+	private int boxID;
+	private int customerID;
+	private float weight;
+	private float length;
+	private float width;
+	private float height;
+	private String description;
+	private String status;
+	
+	Box(int boxID, int customerID, float weight, float length, float width, float height, String description, String status) {
+		this.boxID = boxID;
+		this.customerID = customerID;
+		this.weight = weight;
+		this.length = length;
+		this.width = width;
+		this.height = height;
+		this.description = description;
+		this.status = status;
 	}
 
 	void addItem(Items item) {
