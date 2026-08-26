@@ -1,3 +1,4 @@
+package BusinessLogic;
 class Session {
 
 	Admin admin;

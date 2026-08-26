@@ -1,3 +1,5 @@
+package BusinessLogic;
+
 class Admin extends Person{
 
 	private String employerID;
