@@ -1,3 +1,4 @@
+package BusinessLogic;
 class Person {
 
 	String govID;
@@ -50,5 +51,37 @@ class Person {
 
 	public String getPassword() {
     return password;
+	}
+
+	public void setGovID(String govID) {
+    this.govID = govID;
+	}
+
+	public void setName(String name) {
+    this.name = name;
+	}
+
+	public void setAge(int age) {
+    this.age = age;
+	}
+
+	public void setAddress(String address) {
+    this.address = address;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+    this.emailAddress = emailAddress;
+	}
+
+	public void setPassword(String password) {
+    this.password = password;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+	}
+
+	public void setUserName(String userName) {
+    this.userName = userName;
 	}
 }
