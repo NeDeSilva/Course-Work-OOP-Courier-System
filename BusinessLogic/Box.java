@@ -5,7 +5,7 @@ package BusinessLogic;
 
  import java.util.ArrayList;
 public class Box {
-	ArrayList<Items> itemsInBox = new ArrayList<Items>();
+	ArrayList<Item> itemsInBox = new ArrayList<Item>();
 	private int boxID;
 	private int customerID;
 	private float weight;
@@ -26,11 +26,11 @@ public class Box {
 		this.status = status;
 	}
 
-	void addItem(Items item) {
+	void addItem(Item item) {
 		itemsInBox.add(item);
 	}
 	
-	Items removeItem(Items item) {
+	Item removeItem(Item item) {
 		itemsInBox.remove(item);
 		return item;
 	}
@@ -41,13 +41,13 @@ public class Box {
 	
 	float getTotalPrice() {
 		float total = 0;
-		for (Items item : itemsInBox) {
+		for (Item item : itemsInBox) {
 			total += item.getItemPriceAfterDiscount();
 		}
 		return total;
 	}
 	
-	public ArrayList<Items> getItems() {
+	public ArrayList<Item> getItems() {
 		return itemsInBox;
 	}
 	

@@ -2,7 +2,7 @@ package BusinessLogic;
 /**
  * Items
  */
-public class Items {
+public class Item {
 
 	String itemID;
 	String itemName;
@@ -13,7 +13,7 @@ public class Items {
 	int itemDiscount;
 	int stockCount;
 
-	Items(String itemID, String itemName, String Description, int itemWeight, int itemSize, float itemPrice, int itemDiscount, int stockCount) {
+	Item(String itemID, String itemName, String Description, int itemWeight, int itemSize, float itemPrice, int itemDiscount, int stockCount) {
 		this.itemID = itemID;
 		this.itemName = itemName;
 		this.Description = Description;
@@ -71,4 +71,25 @@ public class Items {
 	public void setItemPrice(float itemPrice) {
 		this.itemPrice = itemPrice;
 	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+	public void setDescription(String description) {
+    Description = description;
+	}
+
+	public void setItemID(String itemID) {
+    this.itemID = itemID;
+	}
+
+	public void setItemSize(int itemSize) {
+    this.itemSize = itemSize;
+	}
+
+	public void setItemWeight(int itemWeight) {
+    this.itemWeight = itemWeight;
+	}
+
 }

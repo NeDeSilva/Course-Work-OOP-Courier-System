@@ -1,28 +1,22 @@
 package BusinessLogic;
 
-public class Driver extends Person {
-    private String vehicleType;
-    private String licenseNumber;
+/**
+ * Driver
+ */
+public class Driver extends Person
+{
+	public String driverID;
+	public Driver(String govID, String name, int age, String address, String phoneNumber, String emailAddress, String userName, String password, String driverID) {
+		super(govID, name, age, address, phoneNumber, emailAddress, userName, password);
+		this.driverID = driverID;
+	}
 
-    public Driver(String id, String name, String vehicleType, String licenseNumber) {
-        super(id, name);
-        this.vehicleType = vehicleType;
-        this.licenseNumber = licenseNumber;
-    }
+	public String getDriverID() {
+		return driverID;
+	}
 
-    public String getVehicleType() {
-        return vehicleType;
-    }
-
-    public void setVehicleType(String vehicleType) {
-        this.vehicleType = vehicleType;
-    }
-
-    public String getLicenseNumber() {
-        return licenseNumber;
-    }
-
-    public void setLicenseNumber(String licenseNumber) {
-        this.licenseNumber = licenseNumber;
-    }
+	public void setDriverID(String driverID) {
+		this.driverID = driverID;
+	}
+	
 }
