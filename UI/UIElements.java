@@ -1,11 +1,11 @@
 /**
  * CoreUI
  */
-
+package UI;
 import java.awt.*;
 import javax.swing.*;
 
-class CoreUIElements {
+public class UIElements {
 
 	static String title = "Courier Management System";
 	static int baseLocationX = 100;
@@ -64,17 +64,18 @@ class CoreUIElements {
 	}
 
 	static JLabel createLabel(String name) {
-		JLabel label = new JLabel(name);
-		@Override
-		protected void paintComponent(Graphics g){
-			Graphics2D g2 = (Graphics2D) g.create();
-			g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, 
-                               RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
-                               RenderingHints.VALUE_ANTIALIAS_ON);
-            super.paintComponent(g2);
-            g2.dispose();
-		}
+		JLabel label = new JLabel(name) {
+			@Override
+			protected void paintComponent(Graphics g) {
+				Graphics2D g2 = (Graphics2D) g.create();
+				g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, 
+																																			RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+																																			RenderingHints.VALUE_ANTIALIAS_ON);
+				super.paintComponent(g2);
+				g2.dispose();
+			}
+		};
 
 		label.setBounds(100, 100, 100, 100);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
