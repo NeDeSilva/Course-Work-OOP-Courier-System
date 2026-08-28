@@ -1,4 +1,0 @@
-package UI;
-class ManageUI {
-	
-}
