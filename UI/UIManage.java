@@ -1,7 +1,6 @@
 package UI;
 
 import java.awt.LayoutManager;
-
 import javax.swing.*;
 
 public class UIManage {
@@ -17,9 +16,7 @@ public class UIManage {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1200, 700);
 		frame.setLocationRelativeTo(null);
-		frame.setLayout(new LayoutManager() {
-			
-		});
+		frame.setLayout(new LayoutManager() {});
 		frame.setVisible(true);
 		frame.add(UIPanels.createHomePanel());
 		frame.add(UIPanels.createTopPanel());
