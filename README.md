@@ -49,41 +49,41 @@ To run this project locally:
 
 ## 2. Problem Identification and Analysis
 
-### 2.1 Problem Statement & Application Domain
-In the modern e-commerce landscape, inefficient package handling and manual order tracking frequently cause delivery delays, incorrect status updates, and inaccurate cost calculations. 
+### 2.1 The Problem & Application Domain
+In modern e-commerce, poor package management and manual tracking quickly lead to missed delivery deadlines, incorrect status updates, and miscalculated shipping fees. 
 
-To address these operational challenges, this project targets the **Logistics and Delivery Management Domain** by building a standalone Java desktop application: the **Courier Management System**. The application automates core workflow processes—from package tracking and courier assignment to delivery cost estimation and statistical reporting—providing seamless operational management for sellers and system administrators.
-
----
-
-### 2.2 Real-World Objects & System Representations
-The application models key physical and operational entities within the courier ecosystem as Object-Oriented Programming (OOP) classes:
-
-* **Delivery Order / Package:** Represents physical packages being shipped through the system. Attributes include order ID, sender/recipient information, package weight, delivery status, and calculated delivery fees.
-* **Courier / Delivery Agent:** Represents the personnel tasked with package transport. Attributes include courier ID, name, assigned schedule, capacity, and active deliveries.
-* **Seller:** Represents the business entity or user creating delivery orders via the `SellerUI`. Attributes include seller ID, business details, order history, and active order statuses.
-* **Delivery Schedule & Report:** Operational data models representing assigned routes, dispatch timelines, estimated delivery times, and summary performance metrics.
+To fix these everyday headaches, this project focuses on the **Logistics and Courier Management** domain. We developed a standalone Java desktop application called the **Courier Management System**. It automates the messy parts of delivery—handling order creation, courier schedules, live tracking, cost estimates, and reports—so both sellers and system admins can keep things running smoothly.
 
 ---
 
-### 2.3 Requirements and System Functionalities
+### 2.2 Real-World Entities in the Code
+To map the physical courier world into Java objects, we created classes for the main "players" in the system:
 
-#### **Functional Requirements:**
-1. **Order Management:** Enable sellers to create, update, and manage delivery orders with automatic order processing.
-2. **Package & Status Tracking:** Provide real-time tracking of package locations and status transitions (e.g., *Pending*, *Dispatched*, *Delivered*).
-3. **Courier Assignment & Scheduling:** Automatically or manually assign packages to couriers based on availability and delivery schedules.
-4. **Cost & Delivery Time Calculation:** Compute precise delivery costs and estimated delivery times based on package metrics and destination distance.
-5. **Reports & Analytics:** Generate summary statistics and delivery reports for administrative monitoring and operational review.
-
-#### **Non-Functional Requirements:**
-1. **Data Persistence:** Maintain transactional integrity and persistent storage across sessions using a MySQL relational database.
-2. **User Interface Accessibility:** Provide a clean, intuitive Graphical User Interface (`SellerUI` and main UI) for administrative and seller tasks.
-3. **Reliability & Testability:** Ensure code robustness through unit testing (JUnit 5) and modular object-oriented component architecture.
+* **Delivery Order / Package:** The physical box being shipped. It holds details like tracking IDs, sender/recipient info, package weight, current status, and total shipping cost.
+* **Courier / Driver:** The person delivering the package. Tracks their ID, name, assigned schedule, vehicle capacity, and active deliveries.
+* **Seller:** The shop owner or user setting up shipments through the `SellerUI`. Tracks their ID, business info, past orders, and current shipments.
+* **Delivery Schedule & Reports:** The organizational data that keeps track of routes, dispatch times, estimated arrival times, and daily performance metrics.
 
 ---
 
-### 2.4 Domain Selection Justification & Relevance
+### 2.3 System Requirements & Features
 
-* **Academic Relevance (OOP Principles):** The courier domain inherently involves interacting entities (Orders, Couriers, Sellers, Reports), offering a practical domain to demonstrate core Object-Oriented Programming concepts such as **Encapsulation**, **Inheritance**, **Polymorphism**, and **Abstraction**.
-* **Practical Utility:** Managing deliveries requires deterministic calculation logic, real-time status updates, and relational persistence. Building this system in Java 17 backed by MySQL mirrors real-world enterprise software patterns.
-* **Market Relevance:** Automated courier management directly resolves pain points in modern e-commerce logistics, reducing manual overhead and increasing order fulfillment transparency.
+#### **What the System Does (Functional Requirements):**
+1. **Manage Orders:** Let sellers easily create, update, and manage delivery orders.
+2. **Track Packages:** Provide real-time status updates (like *Pending*, *Dispatched*, or *Delivered*).
+3. **Assign Couriers:** Match packages to available couriers based on their schedules and workload.
+4. **Calculate Costs & ETAs:** Automatically figure out delivery fees and estimated arrival times based on package weight and distance.
+5. **Generate Reports:** Show admins helpful statistics on deliveries, active couriers, and revenue.
+
+#### **System Quality Standards (Non-Functional Requirements):**
+1. **Reliable Storage:** Save all order and user data securely using a MySQL database so nothing gets lost when the app closes.
+2. **Simple Interface:** Provide clean, easy-to-use screens (`SellerUI` and main admin dashboard) that don't require training to navigate.
+3. **Solid Performance & Testing:** Ensure the code is reliable and bug-free using JUnit 5 tests and modular Java architecture.
+
+---
+
+### 2.4 Why Choose This Domain?
+
+* **Great for Learning OOP:** A courier system is naturally built out of distinct, interacting parts (Packages, Couriers, Sellers, Reports). This makes it perfect for practicing core Object-Oriented Programming concepts like **Encapsulation**, **Inheritance**, **Polymorphism**, and **Abstraction**.
+* **Real-World Practicality:** Calculating fees, updating package statuses, and storing data relational-style mirror how actual enterprise logistics software works.
+* **Solves a Real Problem:** Automating delivery management cuts down on human error and makes package shipping much easier for growing businesses.
