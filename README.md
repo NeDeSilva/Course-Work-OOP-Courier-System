@@ -1,48 +1,71 @@
-## Courier management system
+# Courier Management System
 
-### Introduction
+A desktop courier management application built with **Java 17+**, **Swing** for the
+user interface and **SQLite** (via JDBC) for persistence. The whole project applies
+core Object-Oriented Programming principles so it stays simple, extensible and
+maintainable.
 
-This project implements a courier management system using Object-Oriented Programming (OOP) principles in Java. It provides comprehensive features for managing deliveries, tracking packages, and handling courier operations.
+## Features
 
-### Features
+- **Role-based login** (Admin, Seller, Driver, Customer) with a modern dashboard
+  that adapts to the logged-in role.
+- **Inventory management** — add, update, delete and search items.
+- **User management** — register customers, sellers and drivers.
+- **Shipment lifecycle** — create shipments, assign drivers, and advance status
+  (`Created → Picked up → In transit → Delivered`).
+- **Persistence** — items, users and shipments are saved to SQLite every time you
+  hit *Save*, and reloaded on startup. A default admin account is created on
+  first run so the app is usable immediately.
 
-- Create and manage delivery orders
-- Track package status and location
-- Manage courier assignments and schedules
-- Calculate delivery costs and estimated times
-- Generate delivery reports and statistics
+## Default login
 
-### Technologies Used
+| Role     | Username | Password |
+|----------|----------|----------|
+| Admin    | `admin`  | `admin123` |
 
-- Java 17
-- JUnit 5 for testing
-- Maven for dependency management
-- MySQL for data persistence
+## OOP design
 
-### ER Diagram
+- **Abstraction & inheritance** — `Person` is the base class; `Admin`, `Customer`,
+  `Seller` and `Driver` extend it, each adding role-specific fields.
+- **Encapsulation** — domain objects expose behaviour (e.g. `ItemBox.findItem`,
+  `Item.getItemPriceAfterDiscount`) instead of free-floating logic.
+- **Polymorphism** — the login flow and detail dialogs operate on `Person` and
+  dispatch by concrete type.
+- **Single responsibility / DRY** — the GUI uses a shared `UITheme` and an abstract
+  `PersonDetailUI` base, removing duplicated styling and layout code.
 
-The following Entity-Relationship diagram represents the database schema:
+Layered architecture:
 
-![ER Diagram](er-diagram.png)
+```
+Model          Person, Admin, Customer, Seller, Driver, Items, ItemBox, Shipment, Session
+Persistence    DAO  (SQLite + JSON fallback)
+Controller     AppController  (mediates between views and the data layer)
+View           CoreUI, LoginPanel, InventoryPanel, UsersPanel, ShipmentsPanel,
+               CustomerPanel, DriverPanel, SellerPanel, AccountDialog, *-UI dialogs
+Utility        UITheme
+```
 
-### UML class diagram
+## Build & run (Windows)
 
-The following UML class diagram represents the object-oriented design of the system:
+Make sure a JDK (17+) is installed (`java` / `javac` available):
 
-![UML Class Diagram](uml-class-diagram.png)
+```
+build.bat
+run.bat
+```
 
-### UML object diagram
+Or directly:
 
-The following UML object diagram represents the runtime state of the system:
+```
+javac -encoding UTF-8 -cp "libs\sqlite-jdbc-3.46.1.0.jar;libs\slf4j-api-2.0.16.jar;libs\slf4j-simple-2.0.16.jar" -d out *.java
+java -cp "out;libs\sqlite-jdbc-3.46.1.0.jar;libs\slf4j-api-2.0.16.jar;libs\slf4j-simple-2.0.16.jar" App
+```
 
-![UML Object Diagram](uml-object-diagram.png)
+## Tests
 
-### Getting Started
+`SmokeTest` verifies the data layer headlessly (no GUI needed):
 
-To run this project locally:
-
-1. Clone the repository
-2. Ensure you have Java 17 and Maven installed
-3. Configure your MySQL database connection in `application.properties`
-4. Run `mvn clean install` to build the project
-5. Start the application using `java -jar target/courier-system.jar`
+```
+javac -encoding UTF-8 -cp "libs\sqlite-jdbc-3.46.1.0.jar" -d out *.java
+java -cp "out;libs\sqlite-jdbc-3.46.1.0.jar;libs\slf4j-api-2.0.16.jar;libs\slf4j-simple-2.0.16.jar" SmokeTest
+```

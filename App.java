@@ -1,12 +1,10 @@
-import ui.*;
-import Database;
-import BusinessLogic;
-import java.util.concurrent.CompletableFuture;
+import javax.swing.SwingUtilities;
 
-class App{
-	public static void main(String[] args){
-        CompletableFuture<Void> dbTask = CompletableFuture.runAsync(()-> {DatabaseManager.connect();});
-        CompletableFuture.allOf(dbTask).join();
-        ui.UIManage();
-}
+public class App {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            CoreUI frame = new CoreUI();
+            frame.setVisible(true);
+        });
+    }
 }
