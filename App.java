@@ -1,6 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.Border;
+import java.sql.*;
 
 /**
  * App
@@ -52,7 +53,7 @@ class App {
 				"manageCustomers",
 				"manageSessions",
 				"manageAdmins",
-				"manageBox",
+				"manageBox", "logout"
 			};
 			for (String button : SPButtons) {
 				JButton SPButton = new JButton(button);
@@ -115,7 +116,22 @@ class App {
 		
 	}
 
-	void connectDB(){
-		
+	void connectDB()
+	{
+	String url = "jdbc:sqlite:courier_management.db";
+	String createTableSQL = "CREATE TABLE IF NOT EXISTS ITEM ("
+			+ "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+			+ "name TEXT NOT NULL, "
+			+ "weight REAL, "
+			+ "status TEXT"
+			+ ");";
+
+	try (Connection conn = DriverManager.getConnection(url);
+			Statement stmt = conn.createStatement()) {
+		stmt.execute(createTableSQL);
+		System.out.println("SQLite database initialized successfully.");
+	} catch (SQLException e) {
+		System.out.println("Database connection error: " + e.getMessage());
 	}
+}
 }
