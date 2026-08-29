@@ -1,7 +1,7 @@
 import java.awt.*;
+import java.sql.*;
 import javax.swing.*;
 import javax.swing.border.Border;
-import java.sql.*;
 
 /**
  * App
@@ -26,7 +26,6 @@ class App {
 		20,
 		100
 	);
-	
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
@@ -53,7 +52,8 @@ class App {
 				"manageCustomers",
 				"manageSessions",
 				"manageAdmins",
-				"manageBox", "logout"
+				"manageBox",
+				"logout",
 			};
 			for (String button : SPButtons) {
 				JButton SPButton = new JButton(button);
@@ -85,14 +85,13 @@ class App {
 		userName.setBorder(borderSM);
 		JPasswordField password = new JPasswordField();
 		JButton signUpButton = new JButton("SIGNUP");
-		signUpButton.addKeyListener(l);
 		LPanel.add(signUpButton);
 		LPanel.add(userName);
 		LPanel.add(password);
 		return LPanel;
 	}
 
-	signUpPanel(){
+	void signUpPanel() {
 		JPanel SUPpanel = new JPanel();
 
 		String[] fields = {
@@ -104,34 +103,32 @@ class App {
 			"government ID",
 		};
 		for (String field : fields) {
-			JLabel filed = new JLabel(field);
 			new JTextField(field);
 			filed.setAlignmentX(Component.CENTER_ALIGNMENT);
 			filed.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
-			sidePanel.add(field);
-			sidePanel.add(Box.createRigidArea(new Dimension(0, 15)));
+			SUPpanel.add(field);
+			SUPpanel.add(Box.createRigidArea(new Dimension(0, 15)));
 		}
-
-		
-		
 	}
 
-	void connectDB()
-	{
-	String url = "jdbc:sqlite:courier_management.db";
-	String createTableSQL = "CREATE TABLE IF NOT EXISTS ITEM ("
-			+ "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-			+ "name TEXT NOT NULL, "
-			+ "weight REAL, "
-			+ "status TEXT"
-			+ ");";
+	void connectDB() {
+		String url = "jdbc:sqlite:courier_management.db";
+		String createTableSQL =
+			"CREATE TABLE IF NOT EXISTS ITEM (" +
+			"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+			"name TEXT NOT NULL, " +
+			"weight REAL, " +
+			"status TEXT" +
+			");";
 
-	try (Connection conn = DriverManager.getConnection(url);
-			Statement stmt = conn.createStatement()) {
-		stmt.execute(createTableSQL);
-		System.out.println("SQLite database initialized successfully.");
-	} catch (SQLException e) {
-		System.out.println("Database connection error: " + e.getMessage());
+		try (
+			Connection conn = DriverManager.getConnection(url);
+			Statement stmt = conn.createStatement()
+		) {
+			stmt.execute(createTableSQL);
+			System.out.println("SQLite database initialized successfully.");
+		} catch (SQLException e) {
+			System.out.println("Database connection error: " + e.getMessage());
+		}
 	}
-}
 }
