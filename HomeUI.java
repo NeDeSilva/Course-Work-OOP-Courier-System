@@ -16,38 +16,55 @@ public class HomeUI extends CoreUI {
 
 	@Override
 	protected void buildBody() {
+		// Parent container using GridBagLayout to center the card on the whole page
+		JPanel wrapper = new JPanel(new GridBagLayout());
+		wrapper.setOpaque(false);
+
 		JPanel card = Stylier.card();
 		card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
-		card.setPreferredSize(new Dimension(400, 300));
-		card.setMaximumSize(new Dimension(400, 300));
+
+		// Internal padding around the card edges
+		card.setBorder(BorderFactory.createEmptyBorder(30, 32, 30, 32));
+
+		// Dimension adjustments for a cleaner, well-proportioned layout
+		card.setPreferredSize(new Dimension(420, 380));
+		card.setMaximumSize(new Dimension(420, 380));
 
 		card.add(centred(Stylier.h1("Courier Management")));
+		card.add(Box.createVerticalStrut(6));
 		card.add(centred(Stylier.subtle("Track your parcel")));
-		card.add(Box.createVerticalStrut(20));
+
+		card.add(Box.createVerticalStrut(24));
 		card.add(centred(Stylier.h2("Tracking ID")));
+		card.add(Box.createVerticalStrut(10));
 
 		trackingField = Stylier.field();
-		trackingField.setMaximumSize(new Dimension(320, 36));
+		trackingField.setMaximumSize(new Dimension(340, 38));
+		trackingField.setAlignmentX(Component.CENTER_ALIGNMENT);
 		trackingField.addActionListener(e -> track());
 		card.add(trackingField);
 
-		card.add(Box.createVerticalStrut(12));
+		card.add(Box.createVerticalStrut(16));
 
 		JButton track = Stylier.button("Track Parcel", true);
+		track.setAlignmentX(Component.CENTER_ALIGNMENT);
 		track.addActionListener(e -> track());
-		card.add(centred(track));
+		card.add(track);
 
 		status = Stylier.subtle(" ");
 		status.setForeground(Theme.ERROR);
-		card.add(Box.createVerticalStrut(8));
+		card.add(Box.createVerticalStrut(10));
 		card.add(centred(status));
 
 		JButton login = Stylier.linkButton("Log in here");
+		login.setAlignmentX(Component.CENTER_ALIGNMENT);
 		login.addActionListener(e -> goTo(new LoginUI()));
-		card.add(Box.createVerticalStrut(8));
-		card.add(centred(login));
+		card.add(Box.createVerticalStrut(10));
+		card.add(login);
 
-		showCard(card);
+		// Place card inside wrapper, then pass wrapper to showCard
+		wrapper.add(card);
+		showCard(wrapper);
 	}
 
 	private static JComponent centred(JComponent c) {
